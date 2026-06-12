@@ -34,6 +34,25 @@ Prediction
         return {
             loading: false,
             isFormOpen: false,
+            isFormEditProfileOpen: false,
+            isFormChangePasswordOpen: false,
+
+            closeAllForm() {
+                this.isFormEditProfileOpen = false
+                this.isFormChangePasswordOpen = false
+            },
+
+            get isThereAnyFormOpen() {
+                return this.isFormEditProfileOpen || this.isFormChangePasswordOpen
+            },
+
+            toggleFormEditProfile() {
+                this.isFormEditProfileOpen = !this.isFormEditProfileOpen
+            },
+            toggleFormChangePassword() {
+                this.isFormChangePasswordOpen = !this.isFormChangePasswordOpen
+            },
+            
 
             async handleUpdateProfilGuru(form) {
                 const formData = new FormData(form);
