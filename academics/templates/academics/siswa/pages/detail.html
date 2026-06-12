@@ -19,21 +19,21 @@ Siswa
         {% url 'academics:siswa:siswa_web:index' as back_url %}
 
         <div x-show="!showEditForm" x-cloak>
-            {% include "Academics/siswa/partials/card.html" with back_url=back_url %}
+            {% include "academics/siswa/partials/card.html" with back_url=back_url %}
         </div>
         
         <div x-show="showEditForm" x-cloak>
-            {% include "Academics/siswa/partials/form.html" with back_url=back_url %}
+            {% include "academics/siswa/partials/form.html" with back_url=back_url %}
         </div>
 
         <!-- kehadiran -->
         {% if siswa.has_kehadiran %}
             <div x-show="isOpen(2)" x-cloak>
-                {% include "Academics/kehadiran/partials/card.html" with id=2 back_url=back_url kehadiran=siswa.kehadiran %}
+                {% include "academics/kehadiran/partials/card.html" with id=2 back_url=back_url kehadiran=siswa.kehadiran %}
             </div>
             <div x-show="!isOpen(2)" x-cloak>
                 {% url 'academics:kehadiran:kehadiran_web:detail' siswa.kehadiran.id as action_url %}
-                {% include "Academics/kehadiran/partials/form.html" with id=2 success_url=request.get_full_path action_url=action_url form=kehadiran_form back_url=back_url kehadiran=siswa.kehadiran %}
+                {% include "academics/kehadiran/partials/form.html" with id=2 success_url=request.get_full_path action_url=action_url form=kehadiran_form back_url=back_url kehadiran=siswa.kehadiran %}
             </div>
 
         {% else %}
@@ -50,18 +50,18 @@ Siswa
             </div>
             <div x-show="!isOpen(1)" x-cloak>
                 {% url 'academics:kehadiran:kehadiran_web:create' siswa.id as action_url %}
-                {% include "Academics/kehadiran/partials/form.html" with id=1 success_url=request.get_full_path action_url=action_url form=None back_url=back_url %}
+                {% include "academics/kehadiran/partials/form.html" with id=1 success_url=request.get_full_path action_url=action_url form=None back_url=back_url %}
             </div>
         {% endif %}
 
         <!-- data akademik -->
          {% if siswa.has_data_akademik %}
             <div x-show="isOpen(3)" x-cloak>
-                {% include "Academics/akademik/partials/card.html" with id=3 back_url=back_url data_akademik=siswa.data_akademik %}
+                {% include "academics/akademik/partials/card.html" with id=3 back_url=back_url data_akademik=siswa.data_akademik %}
             </div>
             <div x-show="!isOpen(3)" x-cloak>
                 {% url 'academics:akademik:akademik_web:detail' siswa.data_akademik.id as action_url %}
-                {% include "Academics/akademik/partials/form.html" with id=3 success_url=request.get_full_path action_url=action_url form=akademik_form back_url=back_url data_akademik=siswa.data_akademik %}
+                {% include "academics/akademik/partials/form.html" with id=3 success_url=request.get_full_path action_url=action_url form=akademik_form back_url=back_url data_akademik=siswa.data_akademik %}
             </div>
 
         {% else %}
@@ -78,19 +78,19 @@ Siswa
             </div>
             <div x-show="!isOpen(4)" x-cloak>
                 {% url 'academics:akademik:akademik_web:create' siswa.id as action_url_akademik %}
-                {% include "Academics/akademik/partials/form.html" with id=4 success_url=request.get_full_path action_url=action_url_akademik form=None back_url=back_url %}
+                {% include "academics/akademik/partials/form.html" with id=4 success_url=request.get_full_path action_url=action_url_akademik form=None back_url=back_url %}
             </div>
         {% endif %}
 
         <!-- prediksi -->
         {% if siswa.has_kehadiran and siswa.has_data_akademik %}
         <div x-show="isOpen(3)" x-cloak>
-            {% include "Academics/akademik/partials/prediksi-card.html" with title="Prediksi" page_description="Prediksi Prestasi Siswa" id=3 back_url=back_url obj=siswa %}
+            {% include "academics/akademik/partials/prediksi-card.html" with title="Prediksi" page_description="Prediksi Prestasi Siswa" id=3 back_url=back_url obj=siswa %}
             <div @submit-prediksi.window="handleSubmitPrediksi($event.detail)"></div>
         </div>
         {% else %}
         <div>
-            {% include "Academics/akademik/partials/warning-card.html" with title="Prediksi" page_description="Prediksi Prestasi Siswa" id=3 back_url=back_url obj=siswa %}
+            {% include "academics/akademik/partials/warning-card.html" with title="Prediksi" page_description="Prediksi Prestasi Siswa" id=3 back_url=back_url obj=siswa %}
         </div>
         {% endif %}
 
