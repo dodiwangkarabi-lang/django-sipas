@@ -1,0 +1,103 @@
+<div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-6 py-4 border-b bg-gray-50">
+        <h2 class="text-xl font-bold text-gray-800">
+            Dataset
+        </h2>
+        <p class="text-sm text-gray-500">
+            Informasi dataset yang digunakan dalam pelatihan model
+        </p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6">
+
+        <!-- Informasi Dataset -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <!-- <div>
+                <p class="text-sm text-gray-500">
+                    Nama Dataset
+                </p>
+                <p class="font-semibold text-gray-800">
+                    dataset
+                </p>
+            </div> -->
+
+            <!-- ini satu bari full -->
+            <div class="col-span-2">
+                <p class="text-sm text-gray-500">
+                    Sumber Data
+                </p>
+                <p class="font-semibold text-gray-800">
+                    Database Siswa
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Jumlah Baris
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ dataset_version.row_count }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Jumlah Kolom
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ dataset_version.column_count }}
+                </p>
+            </div>
+
+            <!-- <div>
+                <p class="text-sm text-gray-500">
+                    Missing Value
+                </p>
+                <p class="font-semibold text-green-600">
+                    0
+                </p>
+            </div> -->
+
+           
+
+        </div>
+
+        <!-- Ringkasan -->
+        <div class="mt-6 grid grid-cols-3 gap-4">
+
+            <div class="bg-blue-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-blue-600">
+                    Data Training
+                </p>
+                <p class="text-xl font-bold text-blue-700">
+                    {{ dataset_metadata.train_size }}
+                </p>
+            </div>
+
+            <div class="bg-green-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-green-600">
+                    Data Testing
+                </p>
+                <p class="text-xl font-bold text-green-700">
+                    {{ dataset_metadata.test_size }}
+                </p>
+            </div>
+
+            <!-- <div class="bg-purple-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-purple-600">
+                    Feature
+                </p>
+                <p class="text-xl font-bold text-purple-700">
+                    17
+                </p>
+            </div> -->
+
+        </div>
+
+    </div>
+
+</div>

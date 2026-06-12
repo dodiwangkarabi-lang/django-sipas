@@ -1,0 +1,70 @@
+{% extends "core/layouts/base.html" %}
+
+{% block title %}
+Academics
+{% endblock %}
+
+{% block page_title %}
+Prediction
+{% endblock %}
+
+{% block content %}
+<div x-data="predictionPage()">
+    <div class="px-6">
+        {% include 'core/components/alert/messages.html' %}
+        {% include 'Academics/siswa/form.html' with form_action="academics:siswa:siswa_web:index" %}
+    </div>
+
+    <!-- container partials -->
+    <div 
+        @submit-update-profil="handleUpdateProfilGuru($event.detail.form)"
+        class="flex flex-col gap-6 p-6"
+    >
+        {% include "accounts/partials/profil-card.html" with user=request.user %}
+        {% include "accounts/partials/profil-form.html" %}
+        {% include "accounts/partials/ganti-password-form.html" %}
+        
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function predictionPage() {
+        return {
+            loading: false,
+            isFormOpen: false,
+
+            async handleUpdateProfilGuru(form) {
+                const formData = new FormData(form);
+
+                try {
+                    this.loading = true;
+                    const res = await axios({
+                        method: "post",
+                        url: "{% url 'accounts:accounts_api:guru' guru_id=request.user.guru.id %}",
+                        data: formData,
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            'X-CSRFToken': cookieValue
+                        }
+                    });
+
+                    // 
+
+                    // reload
+                    alert("Berhasil Update Profil");
+                    window.location.reload();
+
+                    // console.log(res.data);
+                } catch (error) {
+                    console.log(error);
+                }
+
+                this.loading = false
+                
+            },
+        }
+    }
+</script>
+{% endblock %}

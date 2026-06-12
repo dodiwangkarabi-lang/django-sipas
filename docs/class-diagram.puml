@@ -1,0 +1,43 @@
+@startuml class_diagram
+hide circle
+
+class PredictionService {
+    model_repository: ModelRepository
+    preprocessing_service: PreprocessingService
+
+    predict(input_data: array-like)
+}
+
+class ModelRepository {
+    model_path: str
+
+    load(): model
+    save(model): void
+}
+
+class PreprocessingService {
+    
+}
+
+
+class PredictionModelRepository {
+    model_path: str
+
+     save(model): void
+     load()
+     exists(): bool
+     delete(): void
+     get_model_path(): str
+}
+
+
+class DatasetRepository {
+    dataset_path : str
+
+    load_dataset()
+    get_features()
+    get_labels()
+}
+
+
+@enduml

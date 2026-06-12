@@ -1,0 +1,116 @@
+<div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-6 py-4 border-b bg-gray-50">
+        <h2 class="text-xl font-bold text-gray-800">
+            Pelatihan Model
+        </h2>
+        <p class="text-sm text-gray-500">
+            Konfigurasi dan parameter pelatihan model machine learning
+        </p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6">
+
+        <form class="space-y-6">
+
+            <!-- Nama Model -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Nama Model
+                </label>
+                <input
+                    type="text"
+                    class="w-full rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="Contoh: Random Forest Kelulusan">
+            </div>
+
+            <!-- Algoritma -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Algoritma
+                </label>
+                <select
+                    class="w-full rounded-lg border-gray-300 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option>Random Forest</option>
+                    <option>Decision Tree</option>
+                    <option>Naive Bayes</option>
+                    <option>KNN</option>
+                    <option>SVM</option>
+                </select>
+            </div>
+
+            <!-- Split Data -->
+            <div class="grid md:grid-cols-2 gap-4">
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Data Training (%)
+                    </label>
+                    <input
+                        type="number"
+                        value="80"
+                        min="50"
+                        max="95"
+                        class="w-full rounded-lg border-gray-300">
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">
+                        Data Testing (%)
+                    </label>
+                    <input
+                        type="number"
+                        value="20"
+                        min="5"
+                        max="50"
+                        class="w-full rounded-lg border-gray-300">
+                </div>
+
+            </div>
+
+            <!-- Target -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Target Prediksi
+                </label>
+                <select
+                    class="w-full rounded-lg border-gray-300">
+                    <option>Status Kelulusan</option>
+                    <option>IPK</option>
+                    <option>Masa Studi</option>
+                </select>
+            </div>
+
+            <!-- Keterangan -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Deskripsi
+                </label>
+                <textarea
+                    rows="3"
+                    class="w-full rounded-lg border-gray-300"
+                    placeholder="Catatan atau tujuan pelatihan model..."></textarea>
+            </div>
+
+            <!-- Tombol -->
+            <div class="flex justify-end gap-3 pt-4 border-t">
+                <button
+                    type="button"
+                    class="px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50">
+                    Reset
+                </button>
+
+                <button
+                    type="submit"
+                    class="px-5 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700">
+                    Mulai Pelatihan
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

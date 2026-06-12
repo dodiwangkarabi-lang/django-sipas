@@ -1,0 +1,110 @@
+<div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-6 py-4 border-b bg-gray-50">
+        <h2 class="text-xl font-bold text-gray-800">
+            Profile
+        </h2>
+        <p class="text-sm text-gray-500">
+            Informasi pengguna yang sedang login
+        </p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6">
+
+        <!-- Foto & Nama -->
+        <div class="flex items-center gap-4 mb-6">
+
+            <div class="w-20 h-20 rounded-full bg-gray-200 overflow-hidden">
+                {% if user.guru.foto %}
+                    <img
+                        src="{{ user.guru.foto.url }}"
+                        alt="{{ user.username }}"
+                        class="w-full h-full object-cover"
+                    >
+                {% endif %}
+            </div>
+
+            <div>
+                <h3 class="text-xl font-bold text-gray-800">
+                    {{ user.get_full_name|default:user.username }}
+                </h3>
+
+                <p class="text-gray-500">
+                    {{ user.email }}
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Informasi Profile -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Username
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ user.username }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Email
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ user.email }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Nama Lengkap
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ user.guru.nama }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    NIP
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ user.guru.nip }}
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Bergabung Sejak
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ user.date_joined|date:"d M Y" }}
+                </p>
+            </div>
+
+        </div>
+
+        
+
+        <!-- Tombol Aksi -->
+        <div class="mt-6 flex justify-end gap-3">
+    
+            <a href=""
+            class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition">
+                Ganti Password
+            </a>
+    
+            <a href=""
+            class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                Edit Profile
+            </a>
+    
+        </div>
+    </div>
+
+
+</div>

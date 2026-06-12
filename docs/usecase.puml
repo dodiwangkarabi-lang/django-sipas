@@ -1,0 +1,19 @@
+@startuml usecase
+left to right direction
+
+actor admin
+actor guru
+
+rectangle "sistem" {
+    admin -- (login)
+    admin -- (kelola data akademik siswa)
+    admin -- (lihat data akademik siswa)
+    admin -- (prediksi)
+    admin -- (lihat hasil prediksi)
+
+    guru -- (input data akademik siswa)
+
+}
+
+
+@enduml

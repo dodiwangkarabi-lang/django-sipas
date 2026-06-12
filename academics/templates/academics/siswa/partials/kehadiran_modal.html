@@ -1,0 +1,94 @@
+<template x-if="open">
+<div
+    x-transition
+    class="fixed inset-0 bg-black/40 flex items-center justify-center"
+>
+
+    <div class="bg-white p-6 rounded-xl w-[400px]">
+
+        <h2 class="text-lg font-bold mb-4">
+            <span x-text="form.siswa_nama"></span>
+        </h2>
+
+        <form method="POST" action="{{ action_url }}">
+            {% csrf_token %}
+
+            {% include "core/components/forms/input.html" with label="Tanggal" name="tanggal" %}
+
+            <input
+                type="hidden"
+                name="siswa_id"
+                x-model="form.siswa_id"
+            >
+
+            <input
+                type="hidden"
+                name="siswa_nama"
+                x-model="form.siswa_nama"
+                class="
+                    w-full
+                    rounded-lg
+                    border
+                    border-gray-300
+                    bg-gray-100
+                    px-3
+                    py-2
+                    text-gray-700
+                    cursor-not-allowed
+                "
+                disabled
+            >
+
+            <div class="mb-3">
+
+                <label>Status</label>
+
+                <select
+                    name="status"
+                    x-model="form.status"
+                    class="w-full border rounded px-3 py-2"
+                >
+                    <option value="hadir">Hadir</option>
+                    <option value="izin">Izin</option>
+                    <option value="alfa">Alfa</option>
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label>Keterangan</label>
+
+                <textarea
+                    name="keterangan"
+                    x-model="form.keterangan"
+                    class="w-full border rounded px-3 py-2"
+                ></textarea>
+
+            </div>
+
+            <div class="flex gap-2 justify-end">
+
+                <button
+                    type="button"
+                    @click="closeModal()"
+                    class="border px-4 py-2 rounded"
+                >
+                    Batal
+                </button>
+
+                <button
+                    type="submit"
+                    class="bg-blue-600 text-white px-4 py-2 rounded"
+                >
+                    Simpan
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+</template>

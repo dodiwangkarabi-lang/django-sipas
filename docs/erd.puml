@@ -1,0 +1,16 @@
+@startuml erd
+
+hide circle
+
+class Siswa {
+    id: int
+}
+
+class Kehadiran {
+    id: int
+    siswa: int <<FK>>
+}
+
+Siswa ||--|| Kehadiran
+
+@enduml

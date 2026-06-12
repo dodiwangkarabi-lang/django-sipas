@@ -1,0 +1,34 @@
+@startuml activity
+
+start
+
+:Upload Dataset;
+
+:Preprocessing;
+
+:Pilih Model;
+
+:Training Model;
+
+:Simpan Model;
+
+:Testing / Evaluasi;
+
+if (Akurasi memenuhi?) then (Ya)
+
+    :Input Data Baru;
+
+    :Lakukan Prediksi;
+
+    :Simpan Hasil Prediksi;
+
+else (Tidak)
+
+    :Ubah Parameter;
+    :Pilih Model Lagi;
+
+endif
+
+stop
+
+@enduml

@@ -1,0 +1,10 @@
+@startuml contoh
+actor User
+participant "DOM"
+participant "Alpine Component\n(x-data)" as Alpine
+
+User -> DOM : klik tombol (+)
+DOM -> Alpine : x-on:click increment()
+Alpine -> Alpine : state.count++
+Alpine -> DOM : update x-text count
+@enduml

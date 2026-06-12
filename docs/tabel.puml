@@ -1,0 +1,19 @@
+@startuml tabel
+hide circle
+
+class training_data {
+    nilai_tugas
+    nilai_uts
+    nilai_uas
+    kehadiran
+    label_prestasi
+}
+
+class test_data {
+    nilai_tugas
+    nilai_uts
+    nilai_uas
+    kehadiran
+    label_prestasi
+}
+@enduml

@@ -1,0 +1,22 @@
+<template x-if="isFormOpen">
+    <form 
+        class="space-y-4 bg-white p-4 rounded-2xl"
+        method="post" 
+        action="{% url form_action %}"
+    >
+        
+        {% csrf_token %}
+        
+        {% include "core/components/forms/field.html" with field=form.nama %}
+        {% include "core/components/forms/field.html" with field=form.nis %}
+        
+        
+        <div>
+            <!-- tombol simpan  -->
+            {% include "core/components/forms/button2.html" with label="Simpan" variant="bg-blue-600 text-white hover:bg-blue-700" attrs='type="submit"' %}
+            <!-- tombol batal -->
+            {% include "core/components/forms/button2.html" with label="Batal" variant="bg-gray-400 text-white hover:bg-gray-500" attrs='@click="isFormOpen = false" type="button"' %}
+        </div>
+        
+    </form>
+</template>

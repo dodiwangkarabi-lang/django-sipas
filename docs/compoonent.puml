@@ -1,0 +1,51 @@
+@startuml Prediksi
+hide circle
+
+package "Prediksi" {
+
+    package "Web" {
+        class TrainingView
+        class PredictionView
+        class TestingView
+    }
+
+    package "Services" {
+        class ModelSelectionService {
+            get_model(model_name)
+        }
+        class TrainingService {
+            model_repository: ModelRepository
+
+            train(model_name, x_train, y_train, x_test, y_test)
+            _build_model(model_name)
+        }
+        class PredictionService {
+            model_repository: ModelRepository
+            hasil_prediksi_repository: HasilPrediksiRepository
+            predict(model_path, input_data)
+        }
+        class TestingService {
+            model_repository: ModelRepository
+            test(model_path, x_test, y_test)
+        }
+    }
+
+    package "Repositories" {
+        class ModelRepository
+        class HasilTrainingRepository
+    }
+
+    package "Models" {
+        class ModelML
+        class HasilTraining
+        class HasilPrediksi
+    }
+}
+
+
+TestingService --> ModelRepository
+PredictionService --> ModelRepository
+TrainingService --> ModelRepository
+ModelRepository --> ModelML
+
+@enduml

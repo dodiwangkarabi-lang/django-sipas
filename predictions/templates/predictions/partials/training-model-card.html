@@ -1,0 +1,108 @@
+<div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-6 py-4 border-b bg-gray-50">
+        <h2 class="text-xl font-bold text-gray-800">
+            Training Model
+        </h2>
+        <p class="text-sm text-gray-500">
+            Informasi proses pelatihan model machine learning
+        </p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6">
+
+        <!-- Informasi Utama -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+            <div class="col-span-2">
+                <p class="text-sm text-gray-500">
+                    Algoritma
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ model.nama | title }}
+                </p>
+            </div>
+
+            <!-- <div>
+                <p class="text-sm text-gray-500">
+                    Status
+                </p>
+                <span class="inline-flex px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-700">
+                    Selesai
+                </span>
+            </div> -->
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Data Training
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ dataset_metadata.train_size }} Data
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">
+                    Data Testing
+                </p>
+                <p class="font-semibold text-gray-800">
+                    {{ dataset_metadata.test_size }} Data
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Parameter -->
+        <div class="mt-6">
+            <h3 class="text-sm font-semibold text-gray-700 mb-3">
+                Parameter Model
+            </h3>
+
+            <div class="bg-gray-50 border rounded-lg p-4 space-y-2 text-sm">
+
+                <div class="flex justify-between">
+                    <span class="text-gray-500">n_estimators</span>
+                    <span class="font-medium">{{ hyperparameters.n_estimators }}</span>
+                </div>
+
+                <!-- <div class="flex justify-between">
+                    <span class="text-gray-500">max_depth</span>
+                    <span class="font-medium">10</span>
+                </div> -->
+
+                <div class="flex justify-between">
+                    <span class="text-gray-500">random_state</span>
+                    <span class="font-medium">{{ hyperparameters.random_state }}</span>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Ringkasan -->
+        <!-- <div class="mt-6 grid grid-cols-2 gap-4">
+
+            <div class="bg-blue-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-blue-600">
+                    Durasi Training
+                </p>
+                <p class="text-xl font-bold text-blue-700">
+                    12.4 s
+                </p>
+            </div>
+
+            <div class="bg-purple-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-purple-600">
+                    Versi Model
+                </p>
+                <p class="text-xl font-bold text-purple-700">
+                    v1.0
+                </p>
+            </div>
+
+        </div> -->
+
+    </div>
+
+</div>

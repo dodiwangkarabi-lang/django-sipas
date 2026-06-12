@@ -1,0 +1,27 @@
+@startuml contoh
+
+actor User
+
+participant TrainingService
+participant DatasetRepository
+participant PreprocessingService
+participant FeatureService
+participant ModelTrainer
+
+User -> TrainingService : train_model()
+
+TrainingService -> DatasetRepository : get_training_data()
+DatasetRepository --> TrainingService : dataset
+
+TrainingService -> PreprocessingService : preprocess(dataset)
+PreprocessingService --> TrainingService : clean_dataset
+
+TrainingService -> FeatureService : split_features_target(clean_dataset)
+FeatureService --> TrainingService : X, y
+
+TrainingService -> ModelTrainer : train(X, y)
+ModelTrainer --> TrainingService : trained_model
+
+TrainingService --> User : training_success()
+
+@enduml

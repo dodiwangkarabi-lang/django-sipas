@@ -1,0 +1,28 @@
+@startuml TrainingService
+
+actor User
+
+participant TrainingService
+participant DatasetRepository
+participant ModelTrainer
+participant ModelRepository
+
+User -> TrainingService : train_model()
+
+activate TrainingService
+TrainingService -> DatasetRepository : get_training_data()
+activate DatasetRepository
+DatasetRepository --> TrainingService : dataset
+deactivate DatasetRepository
+TrainingService -> ModelTrainer : train(dataset)
+activate ModelTrainer
+ModelTrainer --> TrainingService : trained_model
+deactivate ModelTrainer
+TrainingService -> ModelRepository : save(trained_model)
+activate ModelRepository
+ModelRepository --> TrainingService : success
+deactivate ModelRepository
+TrainingService --> User : training_completed
+deactivate TrainingService
+
+@enduml

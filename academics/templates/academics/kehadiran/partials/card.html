@@ -1,0 +1,83 @@
+
+<div class="w-full">
+
+    <div class="bg-white shadow rounded-lg overflow-hidden">
+
+        <!-- Header -->
+        <div class="border-b px-6 py-4">
+            <h1 class="text-2xl font-bold text-gray-800">
+                Detail Kehadiran
+            </h1>
+            <p class="text-sm text-gray-500 mt-1">
+                Informasi lengkap Kehadiran
+            </p>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+
+            <dl class="divide-y divide-gray-200">
+
+                <div class="py-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <dt class="font-medium text-gray-600">
+                        Presentase Kehadiran
+                    </dt>
+                    <dd class="md:col-span-2 text-gray-900">
+                        {{ kehadiran.persentase_kehadiran }}
+                    </dd>
+                </div>
+
+                <div class="py-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <dt class="font-medium text-gray-600">
+                        Jumlah Izin
+                    </dt>
+                    <dd class="md:col-span-2 text-gray-900">
+                        {{ kehadiran.jumlah_izin }}
+                    </dd>
+                </div>
+
+                <div class="py-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <dt class="font-medium text-gray-600">
+                        Jumlah Sakit
+                    </dt>
+                    <dd class="md:col-span-2 text-gray-900">
+                        {{ kehadiran.jumlah_sakit }}
+                    </dd>
+                </div>
+
+                <div class="py-4 grid grid-cols-1 md:grid-cols-3 gap-2">
+                    <dt class="font-medium text-gray-600">
+                        Jumlah Alfa
+                    </dt>
+                    <dd class="md:col-span-2 text-gray-900">
+                        {{ kehadiran.jumlah_alfa }}
+                    </dd>
+                </div>
+
+            </dl>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="border-t px-6 py-4 flex flex-wrap gap-2">
+
+            <a
+                @click.prevent="toggleForm({{ id }})"
+                href="#"
+                class="inline-flex items-center px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600"
+            >
+                Edit
+            </a>
+
+            <!-- <a
+                href="{{ back_url }}"
+                class="inline-flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+            >
+                Kembali
+            </a> -->
+
+        </div>
+
+    </div>
+
+</div>

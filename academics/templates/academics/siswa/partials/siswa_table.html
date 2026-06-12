@@ -1,0 +1,35 @@
+<table class="w-full border">
+
+    <thead>
+        <tr class="bg-gray-100">
+            <th class="p-2">Nama</th>
+            <th class="p-2">Aksi</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for siswa in siswa_list %}
+        <tr class="border-t">
+
+            <td class="p-2">
+                {{ siswa.nama }}
+            </td>
+
+            <td class="p-2">
+
+                <button
+                    @click="openModal('{{ siswa.id }}')"
+                    class="bg-blue-600 text-white px-3 py-1 rounded"
+                >
+                    Add Kehadiran
+                </button>
+
+            </td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+
+</table>

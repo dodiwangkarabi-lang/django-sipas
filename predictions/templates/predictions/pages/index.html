@@ -1,0 +1,44 @@
+{% extends "core/layouts/base.html" %}
+
+{% block title %}
+Academics
+{% endblock %}
+
+{% block page_title %}
+Prediction
+{% endblock %}
+
+{% block content %}
+<div x-data="predictionPage()">
+    <div class="px-6">
+        {% include 'core/components/alert/messages.html' %}
+        {% include 'Academics/siswa/form.html' with form_action="academics:siswa:siswa_web:index" %}
+    </div>
+
+    
+
+    
+    <!-- container partials -->
+    <div class="flex flex-col gap-6 p-6">
+
+        <!-- ganti model -->
+        {# include "predictions/partials/change-model-form.html" with can_change_model=True #}
+
+
+        {% include "predictions/partials/features-card.html" with dataset_version=dataset_version %}
+        {% include "predictions/partials/dataset-card.html" with dataset_version=dataset_version dataset_metadata=training_run.dataset_metadata %}
+        {% include "predictions/partials/training-model-card.html" with model=model dataset_metadata=training_run.dataset_metadata hyperparameters=training_run.hyperparameters %}
+        {% include "predictions/partials/evaluasi-model-card.html" with metrics=metrics %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function predictionPage() {
+        return {
+            loading: false
+        }
+    }
+</script>
+{% endblock %}

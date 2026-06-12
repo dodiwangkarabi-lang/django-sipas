@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div
+    x-data="kehadiranForm()"
+    class="p-6"
+>
+
+    {% include "kehadiran/partials/siswa_table.html" %}
+
+    {% include "kehadiran/partials/kehadiran_modal.html" %}
+
+</div>
+
+<script>
+function kehadiranForm() {
+    return {
+        open: false,
+
+        form: {
+            siswa_id: '',
+            status: 'hadir',
+            keterangan: ''
+        },
+
+        openModal(siswaId) {
+            this.form.siswa_id = siswaId
+            this.open = true
+        },
+
+        closeModal() {
+            this.open = false
+        }
+    }
+}
+</script>
+
+{% endblock %}

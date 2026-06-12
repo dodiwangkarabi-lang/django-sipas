@@ -1,0 +1,31 @@
+@startuml sequence_diagram
+
+actor User
+
+control PredictionService
+entity StudentRepository
+entity AcademicRepository
+entity AttendanceRepository
+control DataFrameService
+control FeatureService
+
+User -> PredictionService : predict(student_id)
+
+PredictionService -> StudentRepository : get_student(student_id)
+StudentRepository --> PredictionService : student
+
+PredictionService -> AcademicRepository : get_academic(student_id)
+AcademicRepository --> PredictionService : academic
+
+PredictionService -> AttendanceRepository : get_attendance(student_id)
+AttendanceRepository --> PredictionService : attendance
+
+PredictionService -> DataFrameService : create_dataframe(student,academic,attendance)
+DataFrameService --> PredictionService : dataframe
+
+PredictionService -> FeatureService : transform(dataframe)
+FeatureService --> PredictionService : features
+
+PredictionService --> User : features
+
+@enduml

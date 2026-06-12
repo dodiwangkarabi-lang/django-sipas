@@ -1,0 +1,191 @@
+{% extends "core/layouts/base.html" %}
+
+{% block title %}
+Academics
+{% endblock %}
+
+{% block page_title %}
+Siswa
+{% endblock %}
+
+{% block content %}
+    <div 
+        class="p-6 flex flex-col gap-4"
+        x-data="siswaDetailPage()"
+        x-init="init()"
+    >
+
+        {% include 'core/components/alert/messages.html' %}
+        {% url 'academics:siswa:siswa_web:index' as back_url %}
+
+        <div x-show="!showEditForm" x-cloak>
+            {% include "Academics/siswa/partials/card.html" with back_url=back_url %}
+        </div>
+        
+        <div x-show="showEditForm" x-cloak>
+            {% include "Academics/siswa/partials/form.html" with back_url=back_url %}
+        </div>
+
+        <!-- kehadiran -->
+        {% if siswa.has_kehadiran %}
+            <div x-show="isOpen(2)" x-cloak>
+                {% include "Academics/kehadiran/partials/card.html" with id=2 back_url=back_url kehadiran=siswa.kehadiran %}
+            </div>
+            <div x-show="!isOpen(2)" x-cloak>
+                {% url 'academics:kehadiran:kehadiran_web:detail' siswa.kehadiran.id as action_url %}
+                {% include "Academics/kehadiran/partials/form.html" with id=2 success_url=request.get_full_path action_url=action_url form=kehadiran_form back_url=back_url kehadiran=siswa.kehadiran %}
+            </div>
+
+        {% else %}
+            <div
+                x-show="isOpen(1)" x-cloak
+                class="bg-white p-4 rounded-xl flex items-center justify-center w-fit"
+            >
+                <button 
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                    x-on:click="toggleForm(1)"
+                >
+                    Tambah Kehadiran
+                </button>
+            </div>
+            <div x-show="!isOpen(1)" x-cloak>
+                {% url 'academics:kehadiran:kehadiran_web:create' siswa.id as action_url %}
+                {% include "Academics/kehadiran/partials/form.html" with id=1 success_url=request.get_full_path action_url=action_url form=None back_url=back_url %}
+            </div>
+        {% endif %}
+
+        <!-- data akademik -->
+         {% if siswa.has_data_akademik %}
+            <div x-show="isOpen(3)" x-cloak>
+                {% include "Academics/akademik/partials/card.html" with id=3 back_url=back_url data_akademik=siswa.data_akademik %}
+            </div>
+            <div x-show="!isOpen(3)" x-cloak>
+                {% url 'academics:akademik:akademik_web:detail' siswa.data_akademik.id as action_url %}
+                {% include "Academics/akademik/partials/form.html" with id=3 success_url=request.get_full_path action_url=action_url form=akademik_form back_url=back_url data_akademik=siswa.data_akademik %}
+            </div>
+
+        {% else %}
+            <div
+                x-show="isOpen(4)" x-cloak
+                class="bg-white p-4 rounded-xl flex items-center justify-center w-fit"
+            >
+                <button 
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
+                    x-on:click="toggleForm(4)"
+                >
+                    Tambah Data akademik
+                </button>
+            </div>
+            <div x-show="!isOpen(4)" x-cloak>
+                {% url 'academics:akademik:akademik_web:create' siswa.id as action_url_akademik %}
+                {% include "Academics/akademik/partials/form.html" with id=4 success_url=request.get_full_path action_url=action_url_akademik form=None back_url=back_url %}
+            </div>
+        {% endif %}
+
+        <!-- prediksi -->
+        {% if siswa.has_kehadiran and siswa.has_data_akademik %}
+        <div x-show="isOpen(3)" x-cloak>
+            {% include "Academics/akademik/partials/prediksi-card.html" with title="Prediksi" page_description="Prediksi Prestasi Siswa" id=3 back_url=back_url obj=siswa %}
+            <div @submit-prediksi.window="handleSubmitPrediksi($event.detail)"></div>
+        </div>
+        {% else %}
+        <div>
+            {% include "Academics/akademik/partials/warning-card.html" with title="Prediksi" page_description="Prediksi Prestasi Siswa" id=3 back_url=back_url obj=siswa %}
+        </div>
+        {% endif %}
+
+        
+        
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        function siswaDetailPage() {
+            return {
+                openedForm: {},
+                showForm: false,
+                activeForm: null,
+                showEditForm: false,
+                showCreateFormKehadiran: false,
+                showEditFormKehadiran: false,
+                submitPrediksiLoading: false,
+                hasilPrediksi: "{{ siswa.hasil_prediksi|default:'Belum Diketahui' }}",
+                labelButtonPrediksi: "{% if siswa.has_prediksi_prestasi %} Prediksi Ulang {% else %} Prediksi {% endif %}",
+
+                async init() {
+                    // this.hasilPrediksi = "okelah";
+                    // console.log(cookieValue);
+                }, 
+
+                toggleForm(id) {
+                    this.openedForm[id] = !this.openedForm[id];
+                },
+                
+                isOpen(id) {
+                    return !this.openedForm[id];
+                },
+
+                openForm(formName) {
+                    this.activeForm = formName
+                },
+
+                openEditForm() {
+                    this.showEditForm = true
+                },
+                closeEditForm() {
+                    this.showEditForm = false
+                },
+
+                openCreateFormKehadiran() {
+                    this.showCreateFormKehadiran = true
+                },
+                closeCreateFormKehadiran() {
+                    this.showCreateFormKehadiran = false
+                },
+
+                openEditFormKehadiran() {
+                    this.showEditFormKehadiran = true
+                    console.log(this.showEditForm);
+                },
+                closeEditFormKehadiran() {
+                    this.showEditFormKehadiran = false
+                },
+
+                async handleSubmitPrediksi(data) {
+                    this.submitPrediksiLoading = true;
+
+                    try {
+                        
+                        const res = await axios({
+                            method: 'post',
+                            url: "{% url 'predictions:predictions_api:submit_prediksi' %}",
+                            data: {
+                                siswa_id: data.siswa_id
+                            },
+                            headers: {
+                                'X-CSRFToken': cookieValue
+                            }
+                        });
+    
+                        // console.log(res.data);
+    
+                        this.hasilPrediksi = res.data.data.hasil_prediksi;
+    
+                        // loading selama 1.5 detik
+                        await new Promise(resolve => setTimeout(resolve, 1500));
+
+                        this.labelButtonPrediksi = "Prediksi Ulang";
+                        this.submitPrediksiLoading = false;
+
+                    } catch (error) {
+                        this.submitPrediksiLoading = false;
+                        console.log(error);
+                    }
+                    
+                    
+                }
+            }
+        }
+    </script>
+{% endblock %}

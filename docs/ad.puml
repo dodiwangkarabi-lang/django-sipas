@@ -1,0 +1,12 @@
+@startuml sequence_diagram
+
+start
+:ambil data dari model siswa;
+:ambil data dari model akademik siswa;
+:ambil data dari model kehadiran siswa;
+:gabung jadi data dataframe;
+:jadikan features agar bisa diprediksi;
+:data siap di prediksi;
+stop
+
+@enduml

@@ -1,0 +1,88 @@
+<div class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
+
+    <!-- Header -->
+    <div class="px-6 py-4 border-b bg-gray-50">
+        <h2 class="text-xl font-bold text-gray-800">
+            Evaluasi Model
+        </h2>
+        <p class="text-sm text-gray-500">
+            Hasil evaluasi performa model machine learning
+        </p>
+    </div>
+
+    <!-- Content -->
+    <div class="p-6">
+
+        <!-- Informasi Model -->
+        <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div>
+                <p class="text-sm text-gray-500">Nama Model</p>
+                <p class="font-semibold text-gray-800">
+                    Random Forest
+                </p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">Tanggal Evaluasi</p>
+                <p class="font-semibold text-gray-800">
+                    10 Juni 2026
+                </p>
+            </div>
+        </div>
+
+        <!-- Metrics -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+            <div class="bg-blue-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-blue-600 font-medium">
+                    Accuracy
+                </p>
+                <p class="text-2xl font-bold text-blue-700">
+                    {{ metrics.accuracy }}%
+                </p>
+            </div>
+
+            <div class="bg-green-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-green-600 font-medium">
+                    Precision
+                </p>
+                <p class="text-2xl font-bold text-green-700">
+                    {{ metrics.precision }}%
+                </p>
+            </div>
+
+            <div class="bg-yellow-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-yellow-600 font-medium">
+                    Recall
+                </p>
+                <p class="text-2xl font-bold text-yellow-700">
+                    {{ metrics.recall }}%
+                </p>
+            </div>
+
+            <div class="bg-purple-50 rounded-lg p-4 text-center">
+                <p class="text-sm text-purple-600 font-medium">
+                    F1-Score
+                </p>
+                <p class="text-2xl font-bold text-purple-700">
+                    {{ metrics.f1_score }}%
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Catatan -->
+        <!-- <div class="mt-6 bg-gray-50 border rounded-lg p-4">
+            <h3 class="font-semibold text-gray-800 mb-2">
+                Kesimpulan
+            </h3>
+            <p class="text-sm text-gray-600">
+                Model menunjukkan performa yang sangat baik dengan nilai
+                accuracy di atas 95%. Tidak ditemukan indikasi overfitting
+                yang signifikan pada data pengujian.
+            </p>
+        </div> -->
+
+    </div>
+
+</div>

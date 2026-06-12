@@ -1,0 +1,49 @@
+{% extends "core/layouts/base.html" %}
+
+{% block title %}
+Academics
+{% endblock %}
+
+{% block page_title %}
+Siswa
+{% endblock %}
+
+{% block content %}
+<div x-data="siswaPage()">
+
+<div>
+    {% include 'core/components/alert/messages.html' %}
+    {% include 'Academics/siswa/form.html' with form_action="academics:siswa:list" %}
+</div>
+
+<div class="">
+
+    <h1 class="text-2xl font-bold mb-6">
+        Kehadiran
+    </h1>
+
+    {% include 'core/components/table2.html' %}
+    
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    function siswaPage() {
+        return {
+            isFormOpen: false,
+
+            openForm() {
+                this.isFormOpen = true
+            },
+
+            closeForm() {
+                this.isFormOpen = false
+            }
+        }
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends "core/layouts/base.html" %}
+
+{% block title %}
+Academics
+{% endblock %}
+
+{% block page_title %}
+Siswa
+{% endblock %}
+
+{% block content %}
+<div 
+    class="p-6"
+    x-data="siswaPage()"
+>
+
+<div>
+    {% include 'core/components/alert/messages.html' %}
+    {% include 'Academics/siswa/form.html' with form_action="academics:siswa:siswa_web:index" %}
+</div>
+
+<div class="">
+
+    
+
+    {% include 'academics/siswa/partials/siswa_table2.html' %}
+    
+
+    {% url 'academics:kehadiran:kehadiran_web:index' as action_url %}
+    {% include 'academics/siswa/partials/kehadiran_modal.html' with action_url=action_url %}
+    
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    function siswaPage() {
+        return {
+            open: false,
+            isFormOpen: false,
+            form: {
+                siswa_id: '',
+                status: 'hadir',
+                keterangan: ''
+            },
+
+            openModal(siswaId, siswaNama='') {
+                this.form.siswa_id = siswaId
+                this.form.siswa_nama = siswaNama
+                this.open = true
+            },
+            closeModal() {
+                this.open = false
+            },
+
+            openForm() {
+                this.isFormOpen = true
+            },
+
+            closeForm() {
+                this.isFormOpen = false
+            },
+            handleClickAction(e) {
+                const action_type = e.dataset.actionType;
+                const url = e.href
+                
+                switch (action_type) {
+                    case "edit":
+                        window.location.href = url;
+                        break;
+                    
+                    case "detail":
+                        window.location.href = url;
+                        break;
+                    
+                    case "delete":
+                        if (confirm("apakah anda yakin ingin menghapus?")) {
+                            window.location.href = url;
+                        }
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
+        }
+    }
+</script>
+{% endblock %}

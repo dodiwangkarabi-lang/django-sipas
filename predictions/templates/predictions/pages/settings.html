@@ -1,0 +1,77 @@
+{% extends "core/layouts/base.html" %}
+
+{% block title %}
+Academics
+{% endblock %}
+
+{% block page_title %}
+Prediction
+{% endblock %}
+
+{% block content %}
+<div x-data="predictionPage()">
+    <div>
+        {% include 'core/components/alert/messages.html' %}
+        {% include 'Academics/siswa/form.html' with form_action="academics:siswa:siswa_web:index" %}
+    </div>
+
+    
+
+    
+    <!-- container partials -->
+    <div class="flex flex-col gap-6 p-6">
+
+        <!-- training ulang -->
+        <div
+            @submit-latih-model.window="handleSubmitLatihModel($event.detail.form)"
+        >
+            {% include "predictions/partials/training-form.html" %}
+        </div>
+
+
+
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    function predictionPage() {
+        return {
+            loading: false,
+            isFormOpen: false,
+
+            async handleSubmitLatihModel(form) {
+                const formData = new FormData(form);                
+
+                try {
+                    this.loading = true;
+                    const res = await axios({
+                        method: "post",
+                        url: "{% url 'predictions:predictions_api:latih_model' %}",
+                        data: formData,
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                            'X-CSRFToken': cookieValue
+                        }
+
+                    });
+
+                    // console.log(res.data);
+
+                    // loading selama 1.5 detik
+                    await new Promise(resolve => setTimeout(resolve, 1500));
+
+                    // redirect ke halaman lain
+                    window.location.href = "{% url 'predictions:predictions_web:index' %}"
+                } catch (error) {
+                    
+                }
+                this.loading = false
+                
+                // this.loading = true
+            }
+        }
+    }
+</script>
+{% endblock %}

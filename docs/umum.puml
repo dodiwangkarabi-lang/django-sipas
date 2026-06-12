@@ -1,0 +1,52 @@
+@startuml uml
+
+actor User
+participant "DatasetView (Django)" as View
+participant "DatasetService" as Service
+participant "File Storage" as Storage
+participant "Dataset" as Dataset
+participant "DatasetVersion" as Version
+participant "ML Trainer" as Trainer
+participant "DatasetUsage" as Usage
+
+== Upload Dataset ==
+
+User -> View : Upload file dataset
+View -> Service : create_dataset(file, metadata)
+
+Service -> Storage : save file (.csv/.parquet)
+Storage --> Service : file_path
+
+Service -> Dataset : create(name, type)
+Dataset --> Service : dataset object
+
+Service -> Version : create(version=v1,\nfile=file_path,\nmetadata)
+Version --> Service : dataset_version
+
+Service -> Dataset : set active_version = v1
+Dataset --> Service : saved
+
+Service --> View : success response
+View --> User : dataset created
+
+== Training Model ==
+
+User -> View : start training
+View -> Service : train_model(dataset_id)
+
+Service -> Dataset : get active_version
+Dataset --> Service : dataset_version
+
+Service -> Storage : load file
+Storage --> Service : dataset file
+
+Service -> Trainer : fit_model(dataframe)
+Trainer --> Service : metrics (accuracy, loss)
+
+Service -> Usage : save(dataset_version,\nmodel_name,\nmetrics)
+Usage --> Service : saved
+
+Service --> View : training result
+View --> User : show metrics
+
+@enduml
