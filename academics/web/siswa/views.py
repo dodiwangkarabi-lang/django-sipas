@@ -10,7 +10,8 @@ from academics.models import Siswa
 from academics.web.siswa.forms import SiswaForm
 
 # selectors
-from academics.selectors.selectors import get_all_siswa
+# from academics.selectors.selectors import get_all_siswa
+from academics.siswa.selectors.selectors import get_all_siswa
 
 # services
 from academics.services.services import SiswaService
@@ -23,6 +24,7 @@ from core.messages import (
 )
 
 def siswa_list_view(request):
+    print("ini jalan")
     siswa_list = get_all_siswa()
     siswa_table = SiswaTable()
     siswa_table.build_rows(siswa_list)

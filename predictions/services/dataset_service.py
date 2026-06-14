@@ -82,13 +82,16 @@ class DatasetService:
         metrics = model_trainer.evaluate_model(X_test, y_test) # melakukan evaluasi model
         
         # simpan metrics dan lainnya di database tabel training run (model TrainingRunRepository)
+        data = {
+            "dataset_version": dataset_version,
+            "algorithm": "Random Forest",
+            "hyperparameters": model_trainer._params,
+            "metrics": metrics,
+            "dataset_metadata": dataset_metadata
+        }
         training_run_obj, created = self.training_run_repository.update_or_create(
             dataset_version_obj=dataset_version, 
-            metrics=metrics,
-            algorithm="Random Forest Classifier",
-            dataset_version=dataset_version,
-            hyperparameters=model_trainer._params,
-            dataset_metadata=dataset_metadata
+            **data
         )
         
         model = model_trainer.get_model()
@@ -109,7 +112,7 @@ class DatasetService:
         # simpan model ke database
         self.model_repository.save_ke_db(
             training_run=training_run_obj,
-            nama="Random Forest Classifier",
+            nama="Random Forest",
             file_model=file_model
             # checksum=model_trainer._checksum
         )

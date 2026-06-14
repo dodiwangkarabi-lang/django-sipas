@@ -2,6 +2,12 @@ import hashlib
 
 import pandas as pd
 
+def get_kolom_target(df) -> str:
+    return df.columns[-1]
+
+def get_kolom_features(df) -> list:
+    return list(df.columns[:-1])
+
 def file_checksum(file):
     sha = hashlib.sha256()
     for chunk in file.chunks():

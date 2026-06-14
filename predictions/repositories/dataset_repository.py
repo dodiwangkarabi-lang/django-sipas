@@ -5,6 +5,11 @@ from predictions.models import (
     Dataset, DatasetVersion
 )
 
+# utils
+from predictions.repositories.utils.utils import (
+    get_kolom_features, get_kolom_target
+)
+
 import hashlib
 
 # helpers
@@ -37,12 +42,25 @@ def analyze_dataset(file):
 
     return metadata
 
+class DatasetVersionRepository:
+    def __init__(self):
+        pass
+    
+    def create(self, **kwargs):
+        obj = DatasetVersion.objects.create(**kwargs)
+        return obj
+    
+    def update(self, id, **kwargs):
+        obj = DatasetVersion.objects.filter(id=id).update(**kwargs)
+        return obj
+    
 class DatasetRepository:
 
     def __init__(self, dataset_path=None, target_column=None):
         self.dataset_path = dataset_path
         self.target_column = target_column
         self.model = Dataset
+        self.dataset_version_repository = DatasetVersionRepository()
         
     def get_dataset(self, dataset_id) -> object:
         return self.model.objects.get(id=dataset_id)
@@ -51,6 +69,15 @@ class DatasetRepository:
         return self.__class__.__name__
     
     def save_file(self, file) -> object:
+        """
+        simpan file ke storage
+
+        Args:
+            file (_type_): _description_
+
+        Returns:
+            object: _description_
+        """
         # simpan file ke storage
         # file = request.FILES["dataset"]
 
@@ -85,29 +112,55 @@ class DatasetRepository:
         if existing:
             dataset_version_obj = existing
         else:
-            # # simpan infomasi (metadata) ke database tabel dataset_version
-            dataset_version_obj, created = DatasetVersion.objects.update_or_create(
+            # # simpan data ke database tabel dataset_version
+            file.seek(0)
+            df = pd.read_csv(file)
+            
+            dataset_version_obj = self.dataset_version_repository.create(
                 dataset=dataset_obj,
                 version="1.0",
-                defaults={
-                    "dataset": dataset_obj,
-                    "version": "1.0",
-                    "file": file,
-                    "row_count": metadata["row_count"],
-                    "column_count": metadata["column_count"],
-                    "file_size": file.size,
-                    "checksum": checksum,
-                    "schema": None,
-                    "preview": None,
-                    "columns": metadata["columns"],
-                    "target": "label",
-                    "features": ["nilai_tugas", "nilai_uts", "nilai_uas", "rata_rata_semester_sebelumnya", "jumlah_mata_pelajaran_lulus", "jumlah_izin", "jumlah_sakit", "jumlah_alfa"]
-                }
+                file=file,
+                row_count=metadata["row_count"],
+                column_count=metadata["column_count"],
+                file_size=file.size,
+                checksum=checksum,
+                schema=None,
+                preview=None,
+                columns=metadata["columns"],
+                target=get_kolom_target(df),
+                features=get_kolom_features(df)
+                # features=["nilai_tugas", "nilai_uts", "nilai_uas", "rata_rata_semester_sebelumnya", "jumlah_mata_pelajaran_lulus", "jumlah_izin", "jumlah_sakit", "jumlah_alfa"]
             )
-
+            
             with open(file_path, "wb+") as destination:
                 for chunk in file.chunks():
                     destination.write(chunk)
+            
+        # update active 
+        dataset_obj.is_active = True
+        dataset_obj.active_version = dataset_version_obj
+        dataset_obj.save(update_fields=["is_active", "active_version"])
+        
+            # dataset_version_obj, created = DatasetVersion.objects.update_or_create(
+            #     dataset=dataset_obj,
+            #     version="1.0",
+            #     defaults={
+            #         "dataset": dataset_obj,
+            #         "version": "1.0",
+            #         "file": file,
+            #         "row_count": metadata["row_count"],
+            #         "column_count": metadata["column_count"],
+            #         "file_size": file.size,
+            #         "checksum": checksum,
+            #         "schema": None,
+            #         "preview": None,
+            #         "columns": metadata["columns"],
+            #         "target": "label",
+            #         "features": ["nilai_tugas", "nilai_uts", "nilai_uas", "rata_rata_semester_sebelumnya", "jumlah_mata_pelajaran_lulus", "jumlah_izin", "jumlah_sakit", "jumlah_alfa"]
+            #     }
+            # )
+
+            
         
         return dataset_obj
 

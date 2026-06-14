@@ -43,7 +43,7 @@ class Dataset(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.pk} - {self.name}"
     
 class DatasetVersion(models.Model):
     dataset = models.ForeignKey(
@@ -139,6 +139,9 @@ class TrainingRun(models.Model):
     )
 
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.pk} - {self.algorithm}"
     
 class ModelML(models.Model):
     training_run = models.ForeignKey("TrainingRun", on_delete=models.CASCADE, null=True, blank=True)

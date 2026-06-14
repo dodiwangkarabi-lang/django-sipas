@@ -100,7 +100,10 @@ class SimpanModelFacade:
 
 class AdminPredictionFacade:
     @staticmethod
-    def prediksi(*, siswa_id, model_id="1") -> list:
+    def prediksi(*, siswa_id, model_id=None) -> list:
+        if model_id is None:
+            raise ValueError("model_id is required")
+        
         siswa = Siswa.objects.get(id=siswa_id)
         data_builder_service = DataBuilderService()
         siswa_df = data_builder_service.build(siswa)

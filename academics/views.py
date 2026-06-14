@@ -17,7 +17,6 @@ from core.utils.permissions import (
 )
 
 def siswa_list_view(request):
-
     siswa_list = get_all_siswa()
 
     table = TableBuilder(

@@ -25,7 +25,7 @@ Prediction
         {# include "predictions/partials/change-model-form.html" with can_change_model=True #}
 
 
-        {% include "predictions/partials/features-card.html" with dataset_version=dataset_version %}
+        {# include "predictions/partials/features-card.html" with dataset_version=dataset_version #}
         {% include "predictions/partials/dataset-card.html" with dataset_version=dataset_version dataset_metadata=training_run.dataset_metadata %}
         {% include "predictions/partials/training-model-card.html" with model=model dataset_metadata=training_run.dataset_metadata hyperparameters=training_run.hyperparameters %}
         {% include "predictions/partials/evaluasi-model-card.html" with metrics=metrics %}

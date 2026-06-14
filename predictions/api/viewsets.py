@@ -14,6 +14,7 @@ from predictions.facades.prediction_facade import (
 from academics.models import (
     Siswa, PrediksiPrestasi
 )
+from predictions.models import ModelML
 
 class LatihModelView(APIView):
     def post(self, request):
@@ -47,8 +48,8 @@ class AdminPredictionView(APIView):
         siswa_id = formData.pop("siswa_id")
         siswa = Siswa.objects.get(id=siswa_id)
         
-        
-        hasil_prediksi = AdminPredictionFacade.prediksi(siswa_id=siswa_id)
+        model = ModelML.objects.first()
+        hasil_prediksi = AdminPredictionFacade.prediksi(siswa_id=siswa_id, model_id=model.id)
         
         # buat atau update tabel prediks_prestasi
         prediksi_prestasi, created = PrediksiPrestasi.objects.update_or_create(

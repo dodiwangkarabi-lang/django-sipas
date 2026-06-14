@@ -22,7 +22,7 @@ class Siswa(models.Model):
         if self.has_prediksi_prestasi:
             return self.prediksi_prestasi.hasil_prediksi
         else:
-            return None
+            return ""
 
     def __str__(self):
         return self.nama

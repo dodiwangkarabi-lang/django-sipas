@@ -41,7 +41,8 @@ class AdminPredictionView(View):
 
 class PredictionView(View):
     def get(self, request):
-        model_ml = get_object_or_404(ModelML, id=1)
+        # model_ml = get_object_or_404(ModelML, id=1)
+        model_ml = ModelML.objects.first()
         training_run = model_ml.training_run
         dataset_version = training_run.dataset_version
         metrics = training_run.metrics

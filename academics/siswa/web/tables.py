@@ -9,9 +9,9 @@ class SiswaTable(TableBuilder):
 
     headers = [
         "No",
-        "ID",
-        "Nama",
         "NIS",
+        "Nama",
+        "Prediksi Prestasi",
         "Aksi",
     ]
 
@@ -34,9 +34,9 @@ class SiswaTable(TableBuilder):
             self.add_row(
                 cells=[
                     index,
-                    siswa.id,
-                    siswa.nama,
                     siswa.nis,
+                    siswa.nama,
+                    siswa.hasil_prediksi
                 ],
                 actions=[
                     # {
