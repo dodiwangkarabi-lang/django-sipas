@@ -71,6 +71,10 @@ class UploadDatasetFacade:
             metadata (dict, optional): _description_. Defaults to None.
         """
         dataset_service = DatasetService()
+        # hapus semua dataset
+        # dataset_service.delete_all_dataset()
+        # hapus semua model
+        # dataset_service.delete_all_model()
         dataset = dataset_service.create_dataset(file, metadata)
         model, metrics = dataset_service.train_model(dataset_id=dataset.id)
         

@@ -62,6 +62,12 @@ class DatasetRepository:
         self.model = Dataset
         self.dataset_version_repository = DatasetVersionRepository()
         
+    def delete_dataset(self, dataset_id):
+        return self.model.objects.filter(id=dataset_id).delete()
+    
+    def delete_all_dataset(self):
+        return self.model.objects.all().delete()
+        
     def get_dataset(self, dataset_id) -> object:
         return self.model.objects.get(id=dataset_id)
 

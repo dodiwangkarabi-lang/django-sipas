@@ -24,8 +24,16 @@ class LatihModelView(APIView):
             "contoh": "contoh"
         }
         
+        
         # upload dataset
-        result = UploadDatasetFacade.execute(file=file, metadata=metadata)
+        try:
+            result = UploadDatasetFacade.execute(file=file, metadata=metadata)
+        except Exception as e:
+            messages.error(request, "Terjadi kesalahan, Model gagal di latih")
+            return Response({
+                "message": str(e),
+                "success": False
+            }, status=400)
         
         # latih model
         # model = LatihModelFacade.latih()

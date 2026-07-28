@@ -19,6 +19,9 @@ class ModelRepository:
         self._model_path = model_path
         self._model = None
         
+    def delete_all_model(self):
+        ModelML.objects.all().delete()
+        
     def load_model_db(self, model_id):
         return ModelML.objects.get(id=model_id)
         

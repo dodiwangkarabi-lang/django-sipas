@@ -65,7 +65,8 @@ Prediction
                     // redirect ke halaman lain
                     window.location.href = "{% url 'predictions:predictions_web:index' %}"
                 } catch (error) {
-                    
+                    // reload
+                    window.location.reload();
                 }
                 this.loading = false
                 

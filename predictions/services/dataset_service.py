@@ -24,6 +24,10 @@ class DatasetService:
         self.model_repository = ModelRepository()
         
     def create_dataset(self, file, metadata: dict=None):
+        
+        # delete all model yang ada
+        self.model_repository.delete_all_model()
+        
         dataset = self.dataset_repository.save_file(file)
         
         return dataset
