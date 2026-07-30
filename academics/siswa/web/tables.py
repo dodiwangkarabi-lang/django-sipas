@@ -9,7 +9,7 @@ class SiswaTable(TableBuilder):
 
     headers = [
         "No",
-        "NIS",
+        "NISN",
         "Nama",
         "Prediksi Prestasi",
         "Aksi",
